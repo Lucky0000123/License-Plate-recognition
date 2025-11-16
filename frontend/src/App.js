@@ -4,6 +4,9 @@ import axios from 'axios';
 import { Upload, Camera, CheckCircle, XCircle, Loader, Image as ImageIcon } from 'lucide-react';
 import './App.css';
 
+// API URL from environment variable or fallback to localhost
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -52,7 +55,7 @@ function App() {
         const base64Image = reader.result;
 
         try {
-          const response = await axios.post('/api/predict', {
+          const response = await axios.post(`${API_URL}/api/predict`, {
             image: base64Image
           });
 

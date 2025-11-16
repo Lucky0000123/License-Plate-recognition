@@ -12,3 +12,15 @@ services:
       - key: PYTHON_VERSION
         value: "3.11.9"
 
+  # Frontend Service (React Static Site)
+  - type: web
+    name: license-plate-frontend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npx serve -s build -l $PORT
+    envVars:
+      - key: REACT_APP_API_URL
+        value: "https://license-plate-recognition-qzi2.onrender.com"
+
