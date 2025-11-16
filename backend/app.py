@@ -53,6 +53,22 @@ except Exception as e:
     print(f"Error loading models: {str(e)}")
 
 
+@app.route('/', methods=['GET'])
+def home():
+    """API Home Page"""
+    return jsonify({
+        'success': True,
+        'message': 'License Plate Recognition API',
+        'version': '1.0.0',
+        'endpoints': {
+            'health': '/api/health',
+            'predict': '/api/predict (POST)'
+        },
+        'documentation': 'https://github.com/Lucky0000123/License-Plate-recognition',
+        'frontend': 'Deploy the React frontend to interact with this API'
+    })
+
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Check if API is running"""
