@@ -46,3 +46,6 @@ lxml==4.9.3
 
 # Optional OCR (fallback for character recognition)
 pytesseract==0.3.10
+
+# Production Server
+gunicorn==21.2.0

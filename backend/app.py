@@ -16,7 +16,20 @@ from models.char_recognizer import CharacterRecognizer
 from utils.image_processing import preprocess_image, extract_plate_region
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS for production
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "http://localhost:3000",
+            "https://*.onrender.com",
+            "https://*.vercel.app",
+            "https://*.netlify.app"
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Initialize models
 plate_detector = PlateDetector()
@@ -203,13 +216,17 @@ def internal_error(error):
 if __name__ == '__main__':
     # Create saved_models directory if it doesn't exist
     os.makedirs(MODEL_PATH, exist_ok=True)
-    
+
+    # Get port from environment variable (Render provides this)
+    port = int(os.environ.get('PORT', 5001))
+
     # Run Flask app
     print("=" * 50)
     print("License Plate Recognition API")
     print("=" * 50)
-    print("Server starting on http://localhost:5001")
-    print("Health check: http://localhost:5001/api/health")
+    print(f"Server starting on port {port}")
+    print(f"Health check: http://localhost:{port}/api/health")
     print("=" * 50)
 
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    # Use debug=False for production
+    app.run(host='0.0.0.0', port=port, debug=False)
