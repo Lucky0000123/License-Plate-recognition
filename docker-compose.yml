@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: lpr-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/saved_models:/app/backend/saved_models
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - HOST=0.0.0.0
+      - PORT=5000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: lpr-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    restart: unless-stopped
+
+networks:
+  default:
+    name: lpr-network
+

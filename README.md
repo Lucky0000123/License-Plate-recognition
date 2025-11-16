@@ -64,12 +64,32 @@ license-plate-recognition/
 
 ## 🚀 Installation
 
-### Prerequisites
+### Quick Start (Recommended)
+
+The fastest way to get started:
+
+```bash
+# Run automated setup
+./quick_setup.sh
+```
+
+This will automatically:
+- ✅ Check prerequisites
+- ✅ Create virtual environment
+- ✅ Install all dependencies
+- ✅ Generate sample images
+- ✅ Validate setup
+
+### Manual Setup
+
+If you prefer manual setup:
+
+#### Prerequisites
 - Python 3.8+
 - Node.js 14+
 - pip and npm
 
-### Backend Setup
+#### Backend Setup
 
 ```bash
 # Create virtual environment
@@ -80,11 +100,27 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Frontend Setup
+#### Frontend Setup
 
 ```bash
 cd frontend
 npm install
+```
+
+#### Validate Setup
+
+```bash
+python3 validate_setup.py
+```
+
+### Docker Setup
+
+```bash
+# Build and start with Docker
+docker-compose up --build
+
+# Or run in background
+docker-compose up -d
 ```
 
 ## 📊 Dataset
@@ -126,21 +162,41 @@ python backend/training/train_ocr.py --epochs 100 --batch-size 64
 
 ## 🖥️ Running the Application
 
-### Start Backend Server
+### Method 1: Using Startup Script (Recommended)
 
+```bash
+./run_app.sh
+```
+
+This starts both backend and frontend automatically.
+
+### Method 2: Manual Start
+
+Terminal 1 - Backend:
 ```bash
 cd backend
 python app.py
-# Server runs on http://localhost:5000
+# Server runs on http://localhost:5001
 ```
 
-### Start Frontend
-
+Terminal 2 - Frontend:
 ```bash
 cd frontend
 npm start
 # App runs on http://localhost:3000
 ```
+
+### Method 3: Docker
+
+```bash
+docker-compose up
+```
+
+### Access Points
+
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:5001
+- **Health Check:** http://localhost:5001/api/health
 
 ## 📡 API Endpoints
 
@@ -207,6 +263,33 @@ npm test
 - Detected plate visualization
 - Confidence score display
 - Export results
+
+## 🛠️ Utility Scripts
+
+### Setup Validation
+```bash
+python3 validate_setup.py
+```
+Checks all dependencies and configuration.
+
+### Sample Image Generator
+```bash
+python3 create_sample_images.py
+```
+Creates synthetic license plate images for testing.
+
+### Quick Setup
+```bash
+./quick_setup.sh
+```
+Automated setup script that handles everything.
+
+## 📚 Documentation
+
+- **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - Complete setup instructions
+- **[TESTING_GUIDE.md](TESTING_GUIDE.md)** - Testing procedures
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deployment guide
+- **[FIXES_AND_IMPROVEMENTS.md](FIXES_AND_IMPROVEMENTS.md)** - Recent improvements
 
 ## 📝 License
 
