@@ -1,6 +1,13 @@
 # License Plate Recognition System using CNN
 
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=render)](https://license-plate-recognition-qzi2.onrender.com/api/health)
+[![Python](https://img.shields.io/badge/python-3.11-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/)
+[![React](https://img.shields.io/badge/React-18.2-61dafb?style=for-the-badge&logo=react)](https://reactjs.org/)
+
 A deep learning-based automatic license plate recognition (ALPR) system using Convolutional Neural Networks (CNN) for Indian license plates.
+
+🚀 **[Try Live API](https://license-plate-recognition-qzi2.onrender.com/api/health)** | 📖 **[API Documentation](#-api-endpoints)**
 
 ## 🎯 Features
 
@@ -222,6 +229,45 @@ Upload an image to detect and recognize license plate
 
 ### GET `/api/health`
 Check API health status
+
+**Live API:** https://license-plate-recognition-qzi2.onrender.com/api/health
+
+## 🚀 Deployment
+
+### Live Production Deployment
+
+The application is deployed on Render:
+- **API URL:** https://license-plate-recognition-qzi2.onrender.com
+- **Health Check:** https://license-plate-recognition-qzi2.onrender.com/api/health
+- **Status:** ✅ Live and Running
+
+### Deploy Your Own Instance
+
+#### Option 1: Deploy to Render (Recommended)
+
+1. Fork this repository
+2. Create a new Web Service on [Render](https://render.com)
+3. Connect your GitHub repository
+4. Render will automatically detect `render.yaml` and configure the service
+5. Set environment variable in Render Dashboard:
+   - `PYTHON_VERSION` = `3.11.9`
+6. Deploy!
+
+For detailed instructions, see [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)
+
+#### Option 2: Deploy to Heroku
+
+```bash
+heroku create your-app-name
+git push heroku main
+```
+
+#### Option 3: Deploy with Docker
+
+```bash
+docker build -t license-plate-recognition .
+docker run -p 5001:5001 license-plate-recognition
+```
 
 ## 🧪 Testing
 
