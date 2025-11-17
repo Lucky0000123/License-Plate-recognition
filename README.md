@@ -1,13 +1,14 @@
 # License Plate Recognition System using CNN
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=render)](https://license-plate-recognition-qzi2.onrender.com/api/health)
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=render)](https://license-plate-frontend.onrender.com)
+[![API Status](https://img.shields.io/badge/API-live-success?style=for-the-badge&logo=fastapi)](https://license-plate-recognition-qzi2.onrender.com)
 [![Python](https://img.shields.io/badge/python-3.11-blue?style=for-the-badge&logo=python)](https://www.python.org/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/)
 [![React](https://img.shields.io/badge/React-18.2-61dafb?style=for-the-badge&logo=react)](https://reactjs.org/)
 
 A deep learning-based automatic license plate recognition (ALPR) system using Convolutional Neural Networks (CNN) for Indian license plates.
 
-🚀 **[Try Live API](https://license-plate-recognition-qzi2.onrender.com/api/health)** | 📖 **[API Documentation](#-api-endpoints)**
+🚀 **[Try Live Demo](https://license-plate-frontend.onrender.com)** | 🔌 **[API Endpoint](https://license-plate-recognition-qzi2.onrender.com)** | 📖 **[Documentation](#-api-endpoints)**
 
 ## 🎯 Features
 
@@ -230,16 +231,19 @@ Upload an image to detect and recognize license plate
 ### GET `/api/health`
 Check API health status
 
-**Live API:** https://license-plate-recognition-qzi2.onrender.com/api/health
+## 🚀 Live Deployment
 
-## 🚀 Deployment
+### 🌐 Production URLs
 
-### Live Production Deployment
+The application is fully deployed and accessible:
 
-The application is deployed on Render:
-- **API URL:** https://license-plate-recognition-qzi2.onrender.com
-- **Health Check:** https://license-plate-recognition-qzi2.onrender.com/api/health
-- **Status:** ✅ Live and Running
+| Service | URL | Status |
+|---------|-----|--------|
+| **🎨 Frontend (Web App)** | [license-plate-frontend.onrender.com](https://license-plate-frontend.onrender.com) | ✅ Live |
+| **🔌 Backend API** | [license-plate-recognition-qzi2.onrender.com](https://license-plate-recognition-qzi2.onrender.com) | ✅ Live |
+| **💚 Health Check** | [/api/health](https://license-plate-recognition-qzi2.onrender.com/api/health) | ✅ Healthy |
+
+**👉 [Try the Live Demo Now!](https://license-plate-frontend.onrender.com)** 🚀
 
 ### Deploy Your Own Instance
 
