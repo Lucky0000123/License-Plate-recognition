@@ -9,6 +9,7 @@ import string
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, models
+import easyocr
 
 
 class CharacterRecognizer:
@@ -34,6 +35,7 @@ class CharacterRecognizer:
         self.img_width = img_width
         self.model = None
         self.max_length = 10  # Maximum characters in Indian plates
+        self.easyocr_reader = None  # Will be initialized on first use
     
     def build_model(self):
         """
@@ -177,51 +179,51 @@ class CharacterRecognizer:
     
     def recognize(self, plate_image):
         """
-        Recognize text from plate image
-        
+        Recognize text from plate image using EasyOCR
+
         Args:
             plate_image: Plate region image (BGR)
-        
+
         Returns:
             (plate_text, confidence)
         """
         try:
-            # If model is not loaded, use pytesseract as fallback
-            if self.model is None:
-                return self._recognize_with_tesseract(plate_image)
-            
-            # Preprocess image
-            preprocessed = self.preprocess_plate(plate_image)
-            img_batch = np.expand_dims(preprocessed, axis=0)
-            
-            # Predict
-            predictions = self.model.predict(img_batch, verbose=0)[0]
-            
-            # Decode predictions
+            # Initialize EasyOCR reader on first use
+            if self.easyocr_reader is None:
+                print("Initializing EasyOCR reader...")
+                self.easyocr_reader = easyocr.Reader(['en'], gpu=False)
+                print("EasyOCR reader initialized!")
+
+            # Convert BGR to RGB for EasyOCR
+            if len(plate_image.shape) == 3:
+                rgb_image = cv2.cvtColor(plate_image, cv2.COLOR_BGR2RGB)
+            else:
+                rgb_image = plate_image
+
+            # Use EasyOCR to read text
+            results = self.easyocr_reader.readtext(rgb_image)
+
+            if not results:
+                return "", 0.0
+
+            # Combine all detected text and get average confidence
             plate_text = ''
             confidences = []
-            
-            for char_probs in predictions:
-                char_idx = np.argmax(char_probs)
-                confidence = char_probs[char_idx]
-                
-                # Only add character if confidence is high enough
-                if confidence > 0.3:
-                    plate_text += self.IDX_TO_CHAR[char_idx]
-                    confidences.append(confidence)
-            
+
+            for (bbox, text, conf) in results:
+                # Filter out non-alphanumeric characters
+                clean_text = ''.join(c for c in text if c.isalnum()).upper()
+                plate_text += clean_text
+                confidences.append(conf)
+
             # Calculate average confidence
             avg_confidence = np.mean(confidences) if confidences else 0.0
-            
-            # If plate text is empty or confidence is low, try fallback
-            if not plate_text or avg_confidence < 0.5:
-                return self._recognize_with_tesseract(plate_image)
-            
+
             return plate_text, avg_confidence
-        
+
         except Exception as e:
-            print(f"Recognition error: {e}")
-            return self._recognize_with_tesseract(plate_image)
+            print(f"EasyOCR recognition error: {e}")
+            return "", 0.0
     
     def _recognize_with_tesseract(self, plate_image):
         """
