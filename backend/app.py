@@ -18,16 +18,18 @@ from utils.image_processing import preprocess_image, extract_plate_region
 app = Flask(__name__)
 
 # Configure CORS for production
+# Note: Flask-CORS doesn't support wildcard subdomains, so we list specific domains
 CORS(app, resources={
     r"/api/*": {
         "origins": [
             "http://localhost:3000",
-            "https://*.onrender.com",
-            "https://*.vercel.app",
-            "https://*.netlify.app"
+            "http://localhost:5001",
+            "https://license-plate-frontend.onrender.com",
+            "https://license-plate-recognition-qzi2.onrender.com"
         ],
         "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type"]
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": False
     }
 })
 

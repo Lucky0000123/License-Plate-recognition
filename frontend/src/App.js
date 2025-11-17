@@ -275,7 +275,7 @@ function App() {
                 </div>
                 <p className="text-gray-700">{error}</p>
                 <p className="text-sm text-gray-500 mt-2">
-                  Make sure the backend server is running on port 5000
+                  API URL: {API_URL}
                 </p>
               </div>
             )}
